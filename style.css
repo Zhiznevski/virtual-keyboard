@@ -1,0 +1,51 @@
+.textarea {
+  display: block;
+  margin: 0 auto;
+  width: 800px;
+  height: 200px;
+}
+
+.keyboard {
+  margin: 30px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  background-color: #c3c3c3;
+  width: 900px;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.key {
+  background-color: #131313;
+  width: 50px;
+  height: 50px;
+  transition: 0.3s;
+  text-align: center;
+  align-content: center;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.key_long {
+  width: 100px;
+}
+
+.key_space {
+  width: 300px;
+}
+
+.clearfix {
+  display: flex;
+  width: 100%;
+  clear: both;
+}
+
+.key:hover {
+  background-color: bisque;
+}
+
+.active {
+  background-color: bisque;
+}/*# sourceMappingURL=style.css.map */
