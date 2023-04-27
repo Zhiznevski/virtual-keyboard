@@ -76,9 +76,15 @@ enter.addEventListener('click', () => {
 //   textarea.focus();
 //   textarea.setSelectionRange(textarea.value.length, textarea.value.length--);
 // });
-// --SPACE--------------------------------------------------------------------
+// --BACKSPACE--------------------------------------------------------------------
 const backspace = KEYS_ARRAY[13];
 backspace.addEventListener('click', () => {
   textarea.focus();
   textarea.value = textarea.value.slice(0, -1);
+});
+// --SPACE--------------------------------------------------------------------
+const space = KEYS_ARRAY[62];
+space.addEventListener('click', () => {
+  textarea.focus();
+  textarea.value += ' ';
 });
