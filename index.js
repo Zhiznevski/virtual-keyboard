@@ -1,84 +1,23 @@
 // eslint-disable-next-line import/extensions, import/no-unresolved
-// import keysArr from './src/data/keysArr';
-
-const keysArr = [
-  '`',
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '0',
-  '-',
-  '=',
-  'Backspace',
-  'Tab',
-  'q',
-  'w',
-  'e',
-  'r',
-  't',
-  'y',
-  'u',
-  'i',
-  'o',
-  'p',
-  '[',
-  ']',
-  '\\',
-  'Delete',
-  'CapsLock',
-  'a',
-  's',
-  'd',
-  'f',
-  'g',
-  'h',
-  'j',
-  'k',
-  'l',
-  ';',
-  "'",
-  'Enter',
-  'Shift',
-  'z',
-  'x',
-  'c',
-  'v',
-  'b',
-  'n',
-  'm',
-  ',',
-  '.',
-  '/',
-  'ArrowUp',
-  'Shift',
-  'Control',
-  'Meta',
-  'Alt',
-  ' ',
-  'Alt',
-  'ArrowLeft',
-  'ArrowDown',
-  'ArrowRight',
-  'Control',
-];
+import { keysArr } from './src/data/keysArr.js';
 
 const body = document.querySelector('body');
-// document.addEventListener('keydown', (event) => {
-//   console.log(event);
-//   newArr.push(event.key);
-//   console.log(event.key);
-//   console.log(newArr);
-// });
-// const longKeys = ['Backspace', 'Tab', 'CapsLock', 'Enter'];
+const textarea = document.createElement('textarea');
+
+document.addEventListener('keydown', (event) => {
+  console.log(event.code);
+  console.log(event);
+});
+const longKeys = ['Backspace', 'CapsLock', 'Enter', 'Shift'];
+const CssClasses = {
+  SPACE: 'key_space',
+  LONG_KEYS: 'key_long',
+};
 const keyboard = document.createElement('div');
 function createKeyboard() {
   keyboard.classList.add('keyboard');
+  textarea.classList.add('textarea');
+  body.appendChild(textarea);
   body.appendChild(keyboard);
   for (let i = 0; i < keysArr.length; i += 1) {
     const key = `<div class = "key">${keysArr[i]}</div>`;
@@ -90,5 +29,39 @@ function createKeyboard() {
   }
 }
 createKeyboard();
-// function addClasses() {}
-// addClasses();
+
+console.log(keyboard.childNodes[0].innerText);
+function addClasses() {
+  for (let i = 0; i < keyboard.childNodes.length; i += 1) {
+    const div = keyboard.childNodes[i];
+    console.log(div);
+    if (longKeys.includes(div.innerText)) {
+      div.classList.add(CssClasses.LONG_KEYS);
+    } else if (div.innerText === '') {
+      div.classList.add(CssClasses.SPACE);
+    }
+  }
+}
+addClasses();
+
+const KEYS_ARRAY = keyboard.childNodes;
+function createLettersArray() {
+  const arr = [];
+  for (let i = 0; i < KEYS_ARRAY.length; i += 1) {
+    if (KEYS_ARRAY[i].innerText.length === 1) {
+      arr.push(KEYS_ARRAY[i]);
+    }
+  }
+  return arr;
+}
+const LETTER_KEYS = createLettersArray();
+console.log(LETTER_KEYS);
+function pressKey() {
+  // eslint-disable-next-line no-useless-concat
+  textarea.value += '' + `${this.innerText}`;
+}
+console.log(KEYS_ARRAY);
+LETTER_KEYS.forEach((key) => key.addEventListener('click', pressKey));
+// --Enter--------------------------------------------------------------------
+const enter = KEYS_ARRAY[43]; // Исправить!!!!
+console.log(enter);

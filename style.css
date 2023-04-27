@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   gap: 5px;
   background-color: #c3c3c3;
-  width: 900px;
+  width: 825px;
   border: 2px solid black;
   padding: 10px;
   border-radius: 10px;
@@ -29,11 +29,11 @@
 }
 
 .key_long {
-  width: 100px;
+  width: 105px;
 }
 
 .key_space {
-  width: 300px;
+  width: 380px;
 }
 
 .clearfix {
