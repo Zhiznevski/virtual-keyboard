@@ -4,9 +4,9 @@ import { keysArr } from './src/data/keysArr.js';
 const body = document.querySelector('body');
 const textarea = document.createElement('textarea');
 
-document.addEventListener('keydown', (event) => {
-  console.log(event.code);
-  console.log(event);
+document.addEventListener('keydown', () => {
+  textarea.focus();
+  // console.log(event);
 });
 const longKeys = ['Backspace', 'CapsLock', 'Enter', 'Shift'];
 const CssClasses = {
@@ -58,6 +58,8 @@ const LETTER_KEYS = createLettersArray();
 console.log(LETTER_KEYS);
 function pressKey() {
   // eslint-disable-next-line no-useless-concat
+
+  // eslint-disable-next-line no-useless-concat
   textarea.value += '' + `${this.innerText}`;
 }
 console.log(KEYS_ARRAY);
@@ -65,3 +67,18 @@ LETTER_KEYS.forEach((key) => key.addEventListener('click', pressKey));
 // --Enter--------------------------------------------------------------------
 const enter = KEYS_ARRAY[43]; // Исправить!!!!
 console.log(enter);
+enter.addEventListener('click', () => {
+  textarea.focus();
+  textarea.value += '\n';
+});
+
+// enter.addEventListener('click', () => {
+//   textarea.focus();
+//   textarea.setSelectionRange(textarea.value.length, textarea.value.length--);
+// });
+// --SPACE--------------------------------------------------------------------
+const backspace = KEYS_ARRAY[13];
+backspace.addEventListener('click', () => {
+  textarea.focus();
+  textarea.value = textarea.value.slice(0, -1);
+});
