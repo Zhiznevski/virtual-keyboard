@@ -29,7 +29,6 @@ function createKeyboard() {
   }
 }
 createKeyboard();
-
 console.log(keyboard.childNodes[0].innerText);
 function addClasses() {
   for (let i = 0; i < keyboard.childNodes.length; i += 1) {
@@ -87,4 +86,52 @@ const space = KEYS_ARRAY[62];
 space.addEventListener('click', () => {
   textarea.focus();
   textarea.value += ' ';
+});
+// eslint-disable-next-line max-len
+// --Arrows-----------------------------------------------------------------------
+const arrowsArr = ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
+const arrowUp = KEYS_ARRAY[56];
+arrowUp.addEventListener('click', () => {
+  textarea.value += '⯅';
+});
+const arrowLeft = KEYS_ARRAY[64];
+arrowLeft.addEventListener('click', () => {
+  textarea.value += '⯇';
+});
+const arrowDown = KEYS_ARRAY[65];
+arrowDown.addEventListener('click', () => {
+  textarea.value += '⯆';
+});
+const arrowRight = KEYS_ARRAY[66];
+arrowRight.addEventListener('click', () => {
+  textarea.value += '⯈';
+});
+
+document.addEventListener('keydown', (event) => {
+  textarea.focus();
+  if (arrowsArr.includes(event.key)) {
+    event.preventDefault();
+  }
+  if (event.key === 'ArrowLeft') {
+    textarea.value += '⯇';
+  } else if (event.key === 'ArrowRight') {
+    textarea.value += '⯈';
+  } else if (event.key === 'ArrowUp') {
+    textarea.value += '⯅';
+  } else if (event.key === 'ArrowDown') {
+    textarea.value += '⯆';
+  }
+});
+// --DEL------------------------------------------------------------
+const del = KEYS_ARRAY[29];
+del.addEventListener('click', () => {
+  textarea.focus();
+  const caret = textarea.selectionStart;
+  textarea.value = textarea.value.slice(0, textarea.selectionStart) + (textarea.value.slice(
+    textarea.selectionStart + 1,
+    textarea.value.length,
+  ));
+
+  // eslint-disable-next-line no-multi-assign
+  textarea.selectionStart = textarea.selectionEnd = caret;
 });
