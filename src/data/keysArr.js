@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-export const keysArr = [
+const keysArr = [
   '`',
   '1',
   '2',
@@ -65,3 +64,4 @@ export const keysArr = [
   'ArrowRight',
   'Control',
 ];
+export default keysArr;

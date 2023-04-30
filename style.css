@@ -1,5 +1,8 @@
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .textarea {
@@ -11,6 +14,7 @@ body {
 }
 
 .keyboard {
+  font-size: 14px;
   margin: 30px auto 0;
   display: flex;
   flex-wrap: wrap;
@@ -43,8 +47,12 @@ body {
 }
 
 .active {
-  background-color: #e83737;
-  border-radius: 10px;
+  background-color: #f27575;
+  border-radius: 30px;
+}
+
+.key:hover {
+  background-color: #f27575;
 }
 
 .key_long {
@@ -59,12 +67,4 @@ body {
   display: flex;
   width: 100%;
   clear: both;
-}
-
-.key:hover {
-  background-color: bisque;
-}
-
-.active {
-  background-color: bisque;
 }/*# sourceMappingURL=style.css.map */

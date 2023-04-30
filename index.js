@@ -1,15 +1,12 @@
-import { keysArr } from './src/data/keysArr.js';
-import { ruKeysArr } from './src/data/ruKeysArr.js';
-import { enKeysArr } from './src/data/enKeysArr.js';
+import keysArr from './src/data/keysArr.js';
+import ruKeysArr from './src/data/ruKeysArr.js';
+import enKeysArr from './src/data/enKeysArr.js';
+import codesArr from './src/data/codesArr.js';
+// import objKeys from './src/data/objKeys.js';
 
 const body = document.querySelector('body');
 const textarea = document.createElement('textarea');
 
-document.addEventListener('keydown', () => {
-  // textarea.focus();
-  // event.preventDefault();
-  // console.log(event);
-});
 const longKeys = ['Backspace', 'CapsLock', 'Enter', 'Shift'];
 const CssClasses = {
   SPACE: 'key_space',
@@ -26,7 +23,7 @@ function createKeyboard() {
   body.appendChild(keyboard);
   body.appendChild(description);
   for (let i = 0; i < keysArr.length; i += 1) {
-    const key = `<div class = "key">${keysArr[i]}</div>`;
+    const key = `<div class = "key" data = "${codesArr[i]}">${keysArr[i]}</div>`;
     if (i === 14 || i === 29 || i === 42 || i === 55) {
       const clearFix = '<div class = "clearfix"></div>';
       keyboard.insertAdjacentHTML('beforeend', clearFix);
@@ -66,6 +63,20 @@ function pressKey() {
 }
 console.log(KEYS_ARRAY);
 LETTER_KEYS.forEach((key) => key.addEventListener('click', pressKey));
+// --add animation to keys--------------------------------------------------------------------
+
+document.addEventListener('keydown', (event) => {
+  document.querySelector(`.key[data ="${event.code}"`).classList.add('active');
+  setTimeout(() => (document.querySelector(`.key[data ="${event.code}"`).classList.remove('active')), 200);
+});
+document.querySelectorAll('.key').forEach((key) => {
+  key.addEventListener('click', () => {
+    key.classList.add('active');
+    setTimeout(() => {
+      key.classList.remove('active');
+    }, 200);
+  });
+});
 // --Enter--------------------------------------------------------------------
 const enter = KEYS_ARRAY[43]; // Исправить!!!!
 console.log(enter);
@@ -98,18 +109,22 @@ space.addEventListener('click', () => {
 // --Arrows-----------------------------------------------------------------------
 const arrowsArr = ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 const arrowUp = KEYS_ARRAY[56];
+arrowUp.innerText = '⯅';
 arrowUp.addEventListener('click', () => {
   textarea.value += '⯅';
 });
 const arrowLeft = KEYS_ARRAY[64];
+arrowLeft.innerText = '⯇';
 arrowLeft.addEventListener('click', () => {
   textarea.value += '⯇';
 });
 const arrowDown = KEYS_ARRAY[65];
+arrowDown.innerText = '⯆';
 arrowDown.addEventListener('click', () => {
   textarea.value += '⯆';
 });
 const arrowRight = KEYS_ARRAY[66];
+arrowRight.innerText = '⯈';
 arrowRight.addEventListener('click', () => {
   textarea.value += '⯈';
 });
@@ -188,13 +203,9 @@ function changeLang() {
 
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Alt' && event.ctrlKey === true) {
-    console.log(LETTER_KEYS.length);
-    console.log(enKeysArr.length);
-    console.log(ruKeysArr);
     changeLang();
   }
 });
-console.log(keyboard);
 function setLocalStorage() {
   localStorage.setItem('lang', lang);
 }
@@ -228,10 +239,3 @@ document.addEventListener('keydown', (event) => {
     pressTab();
   }
 });
-// --create object of keys------------------------------------------------------------
-// const keysObj = {};
-// document.addEventListener('keydown', (event) => {
-//   // event.classList.add('active');
-//   `${keysObj[event.key]}` = event.code;
-//   console.log(keysObj);
-// });

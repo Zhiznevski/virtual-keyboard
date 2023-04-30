@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const ruKeysArr = [
+const ruKeysArr = [
   'ё',
   '1',
   '2',
@@ -48,3 +47,4 @@ export const ruKeysArr = [
   'ю',
   '.',
 ];
+export default ruKeysArr;

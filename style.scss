@@ -1,5 +1,6 @@
 body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  user-select: none;
 }
 .textarea {
   display: block;
@@ -9,6 +10,7 @@ body {
   font-size: 18px;
 }
 .keyboard {
+  font-size: 14px;
   margin: 30px auto 0;
   display: flex;
   flex-wrap: wrap;
@@ -38,8 +40,11 @@ body {
   color: #fff;
 }
 .active {
-  background-color: #e83737;
-  border-radius: 10px;
+  background-color: #f27575;
+  border-radius: 30px;
+}
+.key:hover {
+  background-color: #f27575;
 }
 .key_long {
   width: 105px;
@@ -52,9 +57,4 @@ body {
   width: 100%;
   clear: both;
 }
-.key:hover {
-  background-color: bisque;
-}
-.active {
-  background-color: bisque;
-}
+

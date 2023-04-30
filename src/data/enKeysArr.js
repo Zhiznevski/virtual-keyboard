@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
-export const enKeysArr = [
+const enKeysArr = [
   '`',
   '1',
   '2',
@@ -48,3 +47,4 @@ export const enKeysArr = [
   '.',
   '/',
 ];
+export default enKeysArr;
