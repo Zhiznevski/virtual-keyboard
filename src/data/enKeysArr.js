@@ -1,5 +1,5 @@
-/* eslint-disable import/prefer-default-export */
-export const keysArr = [
+// eslint-disable-next-line import/prefer-default-export
+export const enKeysArr = [
   '`',
   '1',
   '2',
@@ -13,8 +13,6 @@ export const keysArr = [
   '0',
   '-',
   '=',
-  'Backspace',
-  'Tab',
   'q',
   'w',
   'e',
@@ -28,8 +26,6 @@ export const keysArr = [
   '[',
   ']',
   '\\',
-  'Delete',
-  'CapsLock',
   'a',
   's',
   'd',
@@ -41,8 +37,6 @@ export const keysArr = [
   'l',
   ';',
   "'",
-  'Enter',
-  'Shift',
   'z',
   'x',
   'c',
@@ -53,15 +47,4 @@ export const keysArr = [
   ',',
   '.',
   '/',
-  'ArrowUp',
-  'Shift',
-  'Control',
-  'Meta',
-  'Alt',
-  ' ',
-  'Alt',
-  'ArrowLeft',
-  'ArrowDown',
-  'ArrowRight',
-  'Control',
 ];

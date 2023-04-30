@@ -1,8 +1,13 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .textarea {
   display: block;
   margin: 0 auto;
   width: 800px;
   height: 200px;
+  font-size: 18px;
 }
 
 .keyboard {
@@ -17,6 +22,13 @@
   border-radius: 10px;
 }
 
+.title {
+  font-size: 18px;
+  display: block;
+  margin: 20px auto;
+  width: 500px;
+}
+
 .key {
   background-color: #131313;
   width: 50px;
@@ -24,8 +36,15 @@
   transition: 0.3s;
   text-align: center;
   align-content: center;
+  line-height: 45px;
+  cursor: pointer;
   border-radius: 5px;
   color: #fff;
+}
+
+.active {
+  background-color: #e83737;
+  border-radius: 10px;
 }
 
 .key_long {
