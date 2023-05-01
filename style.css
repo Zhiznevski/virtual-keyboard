@@ -1,0 +1,72 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.textarea {
+  display: block;
+  margin: 0 auto;
+  width: 850px;
+  height: 250px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #4d4949;
+}
+
+.keyboard {
+  font-size: 14px;
+  margin: 30px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  background-color: #c3c3c3;
+  width: 825px;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 18px;
+  display: block;
+  margin: 20px auto;
+  width: 500px;
+}
+
+.key {
+  background-color: #131313;
+  width: 50px;
+  height: 50px;
+  transition: 0.3s;
+  text-align: center;
+  align-content: center;
+  line-height: 45px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.active {
+  background-color: #f27575;
+  border-radius: 30px;
+}
+
+.key:hover {
+  background-color: #f27575;
+}
+
+.key_long {
+  width: 105px;
+}
+
+.key_space {
+  width: 380px;
+}
+
+.clearfix {
+  display: flex;
+  width: 100%;
+  clear: both;
+}/*# sourceMappingURL=style.css.map */
