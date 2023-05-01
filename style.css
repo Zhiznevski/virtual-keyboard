@@ -8,9 +8,11 @@ body {
 .textarea {
   display: block;
   margin: 0 auto;
-  width: 800px;
-  height: 200px;
+  width: 850px;
+  height: 250px;
   font-size: 18px;
+  font-weight: 600;
+  color: #4d4949;
 }
 
 .keyboard {

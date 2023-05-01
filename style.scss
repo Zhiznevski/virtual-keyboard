@@ -2,13 +2,17 @@ body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   user-select: none;
 }
+
 .textarea {
   display: block;
   margin: 0 auto;
-  width: 800px;
-  height: 200px;
+  width: 850px;
+  height: 250px;
   font-size: 18px;
+  font-weight: 600;
+  color: #4d4949;
 }
+
 .keyboard {
   font-size: 14px;
   margin: 30px auto 0;
@@ -21,12 +25,14 @@ body {
   padding: 10px;
   border-radius: 10px;
 }
+
 .title {
   font-size: 18px;
   display: block;
   margin: 20px auto;
   width: 500px;
 }
+
 .key {
   background-color: #131313;
   width: 50px;
@@ -39,19 +45,24 @@ body {
   border-radius: 5px;
   color: #fff;
 }
+
 .active {
   background-color: #f27575;
   border-radius: 30px;
 }
+
 .key:hover {
   background-color: #f27575;
 }
+
 .key_long {
   width: 105px;
 }
+
 .key_space {
   width: 380px;
 }
+
 .clearfix {
   display: flex;
   width: 100%;

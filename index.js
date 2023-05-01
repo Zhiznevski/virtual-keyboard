@@ -4,7 +4,6 @@ import ruKeysArrShift from './src/data/ruKeysArrShift.js';
 import enKeysArr from './src/data/enKeysArr.js';
 import enKeysArrShift from './src/data/enKeysArrShift.js';
 import codesArr from './src/data/codesArr.js';
-// import objKeys from './src/data/objKeys.js';
 
 const body = document.querySelector('body');
 const textarea = document.createElement('textarea');
@@ -14,13 +13,19 @@ const CssClasses = {
   SPACE: 'key_space',
   LONG_KEYS: 'key_long',
 };
+
 const keyboard = document.createElement('div');
 const description = document.createElement('p');
+
+// --Create keyboard--------------------------------------------------------------------------
+
 function createKeyboard() {
   keyboard.classList.add('keyboard');
   textarea.classList.add('textarea');
   description.classList.add('title');
-  description.innerText = 'To change language press left "CTRL" + "ALT"';
+  description.innerText = `To change language press left "CTRL" + "ALT"
+
+                           Virtual keyboard created in Windows system`;
   body.appendChild(textarea);
   body.appendChild(keyboard);
   body.appendChild(description);
@@ -34,10 +39,12 @@ function createKeyboard() {
   }
 }
 createKeyboard();
+
+// --Add width to non-standard keys----------------------------------------------------------------
+
 function addClasses() {
   for (let i = 0; i < keyboard.childNodes.length; i += 1) {
     const div = keyboard.childNodes[i];
-    console.log(div);
     if (longKeys.includes(div.innerText)) {
       div.classList.add(CssClasses.LONG_KEYS);
     } else if (div.innerText === '') {
@@ -47,7 +54,13 @@ function addClasses() {
 }
 addClasses();
 
+// --Create array of letters-----------------------------------------------------------------------
+
 const KEYS_ARRAY = keyboard.childNodes;
+
+KEYS_ARRAY[59].innerText = 'Ctrl';
+KEYS_ARRAY[60].innerText = 'Win';
+KEYS_ARRAY[67].innerText = 'Ctrl';
 function createLettersArray() {
   const arr = [];
   for (let i = 0; i < KEYS_ARRAY.length; i += 1) {
@@ -58,21 +71,27 @@ function createLettersArray() {
   return arr;
 }
 const LETTER_KEYS = createLettersArray();
-console.log(LETTER_KEYS);
+
 // --add letters to the TEXTAREA--------------------------------------------------------------------
+
 function pressKey() {
   textarea.setRangeText(this.innerText, textarea.selectionStart, textarea.selectionEnd, 'end');
   textarea.focus();
 }
-console.log(KEYS_ARRAY);
+
 LETTER_KEYS.forEach((key) => key.addEventListener('click', pressKey));
+
 // --add animation to keys--------------------------------------------------------------------
 
 document.addEventListener('keydown', (event) => {
-  document.querySelector(`.key[data ="${event.code}"`).classList.add('active');
+  if (event.key !== 'CapsLock') {
+    document.querySelector(`.key[data ="${event.code}"`).classList.add('active');
+  }
 });
 document.addEventListener('keyup', (event) => {
-  document.querySelector(`.key[data ="${event.code}"`).classList.remove('active');
+  if (event.key !== 'CapsLock') {
+    document.querySelector(`.key[data ="${event.code}"`).classList.remove('active');
+  }
 });
 document.querySelectorAll('.key').forEach((key) => {
   key.addEventListener('mousedown', () => {
@@ -82,90 +101,113 @@ document.querySelectorAll('.key').forEach((key) => {
     key.classList.remove('active');
   });
 });
-// --Enter--------------------------------------------------------------------
-const enter = KEYS_ARRAY[43]; // Исправить!!!!
-console.log(enter);
+
+// --Enter functional-----------------------------------------------------------------------
+
+const enter = KEYS_ARRAY[43];
+
 enter.addEventListener('click', () => {
   textarea.focus();
   textarea.setRangeText('\n', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
 
-// --BACKSPACE--------------------------------------------------------------------
+// --Backspace--functional--------------------------------------------------------------------
+
 const backspace = KEYS_ARRAY[13];
 backspace.addEventListener('click', () => {
   textarea.focus();
-  textarea.value = textarea.value.slice(0, -1);
+  const caret = textarea.selectionStart;
+  textarea.value = textarea.value.slice(0, textarea.selectionStart - 1)
+  + textarea.value.slice(textarea.selectionEnd, textarea.value.length);
+  textarea.selectionStart = caret - 1;
+  textarea.selectionEnd = caret - 1;
 });
-// --SPACE--------------------------------------------------------------------
+
+// --SPACE--functional--------------------------------------------------------------------
 const space = KEYS_ARRAY[62];
 space.addEventListener('click', () => {
   textarea.focus();
-  textarea.value += ' ';
+  textarea.setRangeText(' ', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
-// eslint-disable-next-line max-len
-// --Arrows-----------------------------------------------------------------------
+// --Arrows--functional-----------------------------------------------------------------------
 const arrowsArr = ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 const arrowUp = KEYS_ARRAY[56];
 arrowUp.innerText = '⯅ ';
 arrowUp.addEventListener('click', () => {
-  textarea.value += '⯅';
+  textarea.focus();
+  textarea.setRangeText('⯅', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
 const arrowLeft = KEYS_ARRAY[64];
 arrowLeft.innerText = '⯇ ';
 arrowLeft.addEventListener('click', () => {
-  textarea.value += '⯇';
+  textarea.focus();
+  textarea.setRangeText('⯇', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
 const arrowDown = KEYS_ARRAY[65];
 arrowDown.innerText = '⯆ ';
 arrowDown.addEventListener('click', () => {
-  textarea.value += '⯆';
+  textarea.focus();
+  textarea.setRangeText('⯆', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
 const arrowRight = KEYS_ARRAY[66];
 arrowRight.innerText = '⯈ ';
 arrowRight.addEventListener('click', () => {
-  textarea.value += '⯈';
+  textarea.focus();
+  textarea.setRangeText('⯈', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
-// --DELETE DEFAULT BEHAVIOR------------------------------------------------------------
+
+// --Delete default behavior-of arrows and tab------------------------------------------------------
+
 document.addEventListener('keydown', (event) => {
   textarea.focus();
-  console.log(event);
-  // console.log(event.key);
-  // console.log(event.code);
   if (event.key === 'Tab') {
     event.preventDefault();
   }
   if (arrowsArr.includes(event.key)) {
     event.preventDefault();
   }
+  if (event.key === 'Alt') {
+    event.preventDefault();
+  }
   if (event.key === 'ArrowLeft') {
-    textarea.value += '⯇';
+    textarea.focus();
+    textarea.setRangeText('⯇', textarea.selectionStart, textarea.selectionEnd, 'end');
   } else if (event.key === 'ArrowRight') {
-    textarea.value += '⯈';
+    textarea.focus();
+    textarea.setRangeText('⯈', textarea.selectionStart, textarea.selectionEnd, 'end');
   } else if (event.key === 'ArrowUp') {
-    textarea.value += '⯅';
+    textarea.focus();
+    textarea.setRangeText('⯅', textarea.selectionStart, textarea.selectionEnd, 'end');
   } else if (event.key === 'ArrowDown') {
-    textarea.value += '⯆';
+    textarea.focus();
+    textarea.setRangeText('⯆', textarea.selectionStart, textarea.selectionEnd, 'end');
   }
 });
-// --DEL------------------------------------------------------------
+
+// --Delete functional------------------------------------------------------------
+
 const del = KEYS_ARRAY[29];
 del.addEventListener('click', () => {
+  textarea.focus();
   const caret = textarea.selectionStart;
   textarea.value = textarea.value.slice(0, textarea.selectionStart)
     + textarea.value.slice(textarea.selectionStart + 1, textarea.value.length);
-
   textarea.selectionStart = caret;
   textarea.selectionEnd = caret;
 });
-// --CAPS------------------------------------------------------------
+
+// --CAPS functional------------------------------------------------------------
+
 const capsLock = KEYS_ARRAY[31];
 let capsFlag = false;
+
 function pressCaps() {
   if (capsFlag === false) {
     LETTER_KEYS.forEach((el) => {
       const key = el;
       key.innerText = key.innerText.toUpperCase();
     });
+    capsLock.classList.add('active');
     capsFlag = true;
   } else {
     LETTER_KEYS.forEach((el) => {
@@ -173,16 +215,20 @@ function pressCaps() {
       key.innerText = key.innerText.toLowerCase();
     });
     capsFlag = false;
+    capsLock.classList.remove('active');
   }
 }
 capsLock.addEventListener('click', pressCaps);
+
 document.addEventListener('keydown', (event) => {
   if (event.key === 'CapsLock') {
     event.preventDefault();
     pressCaps();
   }
 });
+
 // --SWITCH LANG------------------------------------------------------------
+
 let lang = 'eng';
 function changeLang() {
   if (lang === 'eng') {
@@ -203,10 +249,12 @@ document.addEventListener('keydown', (event) => {
     changeLang();
   }
 });
+
 function setLocalStorage() {
   localStorage.setItem('lang', lang);
 }
 window.addEventListener('beforeunload', setLocalStorage);
+
 function getLocalStorage() {
   lang = localStorage.getItem('lang');
   if (lang === 'eng') {
@@ -221,24 +269,28 @@ function getLocalStorage() {
     }
   }
 }
-
 window.addEventListener('load', getLocalStorage);
-// --tab------------------------------------------------------------
+
+// --Tab functional------------------------------------------------------------
+
 const tab = KEYS_ARRAY[15];
 function pressTab() {
   textarea.focus();
-  textarea.value += '  ';
+  textarea.setRangeText('  ', textarea.selectionStart, textarea.selectionEnd, 'end');
 }
 tab.addEventListener('click', pressTab);
+
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Tab') {
     event.preventDefault();
     pressTab();
   }
 });
-// --shift------------------------------------------------------------
+
+// --Shift functional------------------------------------------------------------
+
 const shifts = [KEYS_ARRAY[45], KEYS_ARRAY[57]];
-console.log(KEYS_ARRAY);
+
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Shift' && !event.repeat) {
     event.preventDefault();
@@ -251,6 +303,7 @@ document.addEventListener('keydown', (event) => {
     }
   }
 });
+
 document.addEventListener('keyup', (event) => {
   if (event.key === 'Shift' && !event.repeat) {
     event.preventDefault();
@@ -263,6 +316,7 @@ document.addEventListener('keyup', (event) => {
     }
   }
 });
+
 shifts.forEach((element) => element.addEventListener('mousedown', () => {
   for (let i = 0; i < LETTER_KEYS.length; i += 1) {
     if (lang === 'eng') {
@@ -272,6 +326,7 @@ shifts.forEach((element) => element.addEventListener('mousedown', () => {
     }
   }
 }));
+
 shifts.forEach((element) => element.addEventListener('mouseup', () => {
   for (let i = 0; i < LETTER_KEYS.length; i += 1) {
     if (lang === 'eng') {
