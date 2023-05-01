@@ -4,6 +4,7 @@ import ruKeysArrShift from './src/data/ruKeysArrShift.js';
 import enKeysArr from './src/data/enKeysArr.js';
 import enKeysArrShift from './src/data/enKeysArrShift.js';
 import codesArr from './src/data/codesArr.js';
+import objKeys from './src/data/objKeys.js';
 
 const body = document.querySelector('body');
 const textarea = document.createElement('textarea');
@@ -129,6 +130,13 @@ space.addEventListener('click', () => {
   textarea.focus();
   textarea.setRangeText(' ', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
+document.addEventListener('keydown', (event) => {
+  if (event.code === 'Space') {
+    event.preventDefault();
+    textarea.focus();
+    textarea.setRangeText(' ', textarea.selectionStart, textarea.selectionEnd, 'end');
+  }
+});
 // --Arrows--functional-----------------------------------------------------------------------
 const arrowsArr = ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 const arrowUp = KEYS_ARRAY[56];
@@ -160,6 +168,14 @@ arrowRight.addEventListener('click', () => {
 
 document.addEventListener('keydown', (event) => {
   textarea.focus();
+  if (event.key.length === 1 && LETTER_KEYS[0].innerText === 'ё' && event.code !== 'Space') {
+    event.preventDefault();
+    textarea.setRangeText(ruKeysArr[enKeysArr.indexOf(objKeys[event.code])], textarea.selectionStart, textarea.selectionEnd, 'end');
+  }
+  if (event.key.length === 1 && LETTER_KEYS[13].innerText === 'q' && event.code !== 'Space') {
+    event.preventDefault();
+    textarea.setRangeText(enKeysArr[enKeysArr.indexOf(objKeys[event.code])], textarea.selectionStart, textarea.selectionEnd, 'end');
+  }
   if (event.key === 'Tab') {
     event.preventDefault();
   }
@@ -224,6 +240,14 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'CapsLock') {
     event.preventDefault();
     pressCaps();
+  }
+  if (event.key.length === 1 && LETTER_KEYS[0].innerText === 'Ё' && LETTER_KEYS[2].innerText !== '"' && event.code !== 'Space') {
+    event.preventDefault();
+    textarea.setRangeText(ruKeysArr[enKeysArr.indexOf(objKeys[event.code])].toUpperCase(), textarea.selectionStart, textarea.selectionEnd, 'end');
+  }
+  if (event.key.length === 1 && LETTER_KEYS[13].innerText === 'Q' && LETTER_KEYS[2].innerText !== '@' && event.code !== 'Space') {
+    event.preventDefault();
+    textarea.setRangeText(enKeysArr[enKeysArr.indexOf(objKeys[event.code])].toUpperCase(), textarea.selectionStart, textarea.selectionEnd, 'end');
   }
 });
 
@@ -301,6 +325,14 @@ document.addEventListener('keydown', (event) => {
         LETTER_KEYS[i].innerText = ruKeysArrShift[i].toUpperCase();
       }
     }
+  }
+  if (event.key.length === 1 && LETTER_KEYS[2].innerText === '"' && event.code !== 'Space') {
+    event.preventDefault();
+    textarea.setRangeText(ruKeysArrShift[enKeysArr.indexOf(objKeys[event.code])].toUpperCase(), textarea.selectionStart, textarea.selectionEnd, 'end');
+  }
+  if (event.key.length === 1 && LETTER_KEYS[2].innerText === '@' && event.code !== 'Space') {
+    event.preventDefault();
+    textarea.setRangeText(enKeysArrShift[enKeysArr.indexOf(objKeys[event.code])].toUpperCase(), textarea.selectionStart, textarea.selectionEnd, 'end');
   }
 });
 
