@@ -70,14 +70,16 @@ LETTER_KEYS.forEach((key) => key.addEventListener('click', pressKey));
 
 document.addEventListener('keydown', (event) => {
   document.querySelector(`.key[data ="${event.code}"`).classList.add('active');
-  setTimeout(() => (document.querySelector(`.key[data ="${event.code}"`).classList.remove('active')), 200);
+});
+document.addEventListener('keyup', (event) => {
+  document.querySelector(`.key[data ="${event.code}"`).classList.remove('active');
 });
 document.querySelectorAll('.key').forEach((key) => {
-  key.addEventListener('click', () => {
+  key.addEventListener('mousedown', () => {
     key.classList.add('active');
-    setTimeout(() => {
-      key.classList.remove('active');
-    }, 200);
+  });
+  key.addEventListener('mouseup', () => {
+    key.classList.remove('active');
   });
 });
 // --Enter--------------------------------------------------------------------
