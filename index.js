@@ -1,6 +1,8 @@
 import keysArr from './src/data/keysArr.js';
 import ruKeysArr from './src/data/ruKeysArr.js';
+import ruKeysArrShift from './src/data/ruKeysArrShift.js';
 import enKeysArr from './src/data/enKeysArr.js';
+import enKeysArrShift from './src/data/enKeysArrShift.js';
 import codesArr from './src/data/codesArr.js';
 // import objKeys from './src/data/objKeys.js';
 
@@ -32,7 +34,6 @@ function createKeyboard() {
   }
 }
 createKeyboard();
-
 function addClasses() {
   for (let i = 0; i < keyboard.childNodes.length; i += 1) {
     const div = keyboard.childNodes[i];
@@ -58,8 +59,10 @@ function createLettersArray() {
 }
 const LETTER_KEYS = createLettersArray();
 console.log(LETTER_KEYS);
+// --add letters to the TEXTAREA--------------------------------------------------------------------
 function pressKey() {
-  textarea.value += `${this.innerText}`;
+  textarea.setRangeText(this.innerText, textarea.selectionStart, textarea.selectionEnd, 'end');
+  textarea.focus();
 }
 console.log(KEYS_ARRAY);
 LETTER_KEYS.forEach((key) => key.addEventListener('click', pressKey));
@@ -82,16 +85,8 @@ const enter = KEYS_ARRAY[43]; // Исправить!!!!
 console.log(enter);
 enter.addEventListener('click', () => {
   textarea.focus();
-
-  textarea.value = `${textarea.value.slice(0, textarea.selectionStart)} ${`\n${textarea.value.slice(textarea.selectionEnd, textarea.value.length)}`}`;
-  console.log(textarea.value.length);
+  textarea.setRangeText('\n', textarea.selectionStart, textarea.selectionEnd, 'end');
 });
-// const caret = textarea.selectionStart;
-// textarea.value = textarea.value.slice(0, textarea.selectionStart)
-//   + textarea.value.slice(textarea.selectionStart + 1, textarea.value.length);
-
-// textarea.selectionStart = caret;
-// textarea.selectionEnd = caret;
 
 // --BACKSPACE--------------------------------------------------------------------
 const backspace = KEYS_ARRAY[13];
@@ -109,22 +104,22 @@ space.addEventListener('click', () => {
 // --Arrows-----------------------------------------------------------------------
 const arrowsArr = ['ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 const arrowUp = KEYS_ARRAY[56];
-arrowUp.innerText = '⯅';
+arrowUp.innerText = '⯅ ';
 arrowUp.addEventListener('click', () => {
   textarea.value += '⯅';
 });
 const arrowLeft = KEYS_ARRAY[64];
-arrowLeft.innerText = '⯇';
+arrowLeft.innerText = '⯇ ';
 arrowLeft.addEventListener('click', () => {
   textarea.value += '⯇';
 });
 const arrowDown = KEYS_ARRAY[65];
-arrowDown.innerText = '⯆';
+arrowDown.innerText = '⯆ ';
 arrowDown.addEventListener('click', () => {
   textarea.value += '⯆';
 });
 const arrowRight = KEYS_ARRAY[66];
-arrowRight.innerText = '⯈';
+arrowRight.innerText = '⯈ ';
 arrowRight.addEventListener('click', () => {
   textarea.value += '⯈';
 });
@@ -239,3 +234,48 @@ document.addEventListener('keydown', (event) => {
     pressTab();
   }
 });
+// --shift------------------------------------------------------------
+const shifts = [KEYS_ARRAY[45], KEYS_ARRAY[57]];
+console.log(KEYS_ARRAY);
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Shift' && !event.repeat) {
+    event.preventDefault();
+    for (let i = 0; i < LETTER_KEYS.length; i += 1) {
+      if (lang === 'eng') {
+        LETTER_KEYS[i].innerText = enKeysArrShift[i].toUpperCase();
+      } else {
+        LETTER_KEYS[i].innerText = ruKeysArrShift[i].toUpperCase();
+      }
+    }
+  }
+});
+document.addEventListener('keyup', (event) => {
+  if (event.key === 'Shift' && !event.repeat) {
+    event.preventDefault();
+    for (let i = 0; i < LETTER_KEYS.length; i += 1) {
+      if (lang === 'eng') {
+        LETTER_KEYS[i].innerText = enKeysArr[i];
+      } else {
+        LETTER_KEYS[i].innerText = ruKeysArr[i];
+      }
+    }
+  }
+});
+shifts.forEach((element) => element.addEventListener('mousedown', () => {
+  for (let i = 0; i < LETTER_KEYS.length; i += 1) {
+    if (lang === 'eng') {
+      LETTER_KEYS[i].innerText = enKeysArrShift[i].toUpperCase();
+    } else {
+      LETTER_KEYS[i].innerText = ruKeysArrShift[i].toUpperCase();
+    }
+  }
+}));
+shifts.forEach((element) => element.addEventListener('mouseup', () => {
+  for (let i = 0; i < LETTER_KEYS.length; i += 1) {
+    if (lang === 'eng') {
+      LETTER_KEYS[i].innerText = enKeysArr[i];
+    } else {
+      LETTER_KEYS[i].innerText = ruKeysArr[i];
+    }
+  }
+}));
